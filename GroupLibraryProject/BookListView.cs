@@ -8,6 +8,7 @@ namespace GroupLibraryProject
 {
     class BookListView
     {
+        // LOOK I MADE COOL CHANGES!!
         private List<Book> books;
 
         public List<Book> Books
