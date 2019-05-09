@@ -34,9 +34,7 @@ namespace GroupLibraryProject
         }
         public void DisplayType(List<Book> bookList, string type)
         {
-            foreach(Book book in bookList)
-            {
-                if(book.Type==type)
+
 
             foreach (Book book in bookList)
             {
@@ -45,10 +43,11 @@ namespace GroupLibraryProject
                     Console.WriteLine($"{book.Type}");
                 }
             }
-        }
-       
-            
 
+
+
+
+        }
     }
 }
 
@@ -62,6 +61,6 @@ namespace GroupLibraryProject
 
 
 
-   
 
-   
+
+
