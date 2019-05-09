@@ -8,5 +8,6 @@ namespace GroupLibraryProject
 {
     class Book
     {
+        private string Title;
     }
 }
