@@ -9,7 +9,7 @@ namespace GroupLibraryProject
     class BookView
     {
 
-        private string displayBook;
+        private Book displayBook;
 
 
         public Book DisplayBook
