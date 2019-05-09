@@ -33,11 +33,11 @@ namespace GroupLibraryProject
         }
         public static void DisplayType(List<Book> bookList,string type)
         {
-            foreach(Book book in books)
+            foreach(Book book in bookList)
             {
-                if(book.Type==Type)
+                if(book.Type==type)
                 {
-                    Console.WriteLine($"{book.Title}");
+                    Console.WriteLine($"{book.Type}");
                 }
             }
 

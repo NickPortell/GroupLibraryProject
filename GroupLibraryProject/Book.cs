@@ -1,11 +1,4 @@
-<<<<<<< HEAD
-﻿namespace GroupLibraryProject
-{
-    internal class Book
-    {
-    }
-}
-=======
+
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -59,4 +52,3 @@ namespace GroupLibraryProject
 
     }
 }
->>>>>>> 8d6259a55f7720ad168ec15c53c47af031e28169
