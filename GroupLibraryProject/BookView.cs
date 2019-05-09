@@ -41,17 +41,17 @@ namespace GroupLibraryProject
                 "\n" +
                 "\n" +
                 "");
-
+            //To center text in the window
             string s = "Title : ";
             Console.WriteLine(String.Format("{0," + ((Console.WindowWidth / 2) + (s.Length / 2)) + "}", s));
-            string t = "Author : ";
-            Console.WriteLine(String.Format("{0," + ((Console.WindowWidth / 2) + (t.Length / 2)) + "}", t));
+            string a = "Author : ";
+            Console.WriteLine(String.Format("{0," + ((Console.WindowWidth / 2) + (a.Length / 2)) + "}", a));
             string g = "Genre : ";
             Console.WriteLine(String.Format("{0," + ((Console.WindowWidth / 2) + (g.Length / 2)) + "}", g));
             string d = "Due date : ";
             Console.WriteLine(String.Format("{0," + ((Console.WindowWidth / 2) + (d.Length / 2)) + "}", d));
-            string k = "Checked in/out : ";
-            Console.WriteLine(String.Format("{0," + ((Console.WindowWidth / 2) + (k.Length / 2)) + "}", k));
+            string c = "Checked in/out : ";
+            Console.WriteLine(String.Format("{0," + ((Console.WindowWidth / 2) + (c.Length / 2)) + "}", c));
             Console.ReadLine();
 
         }
