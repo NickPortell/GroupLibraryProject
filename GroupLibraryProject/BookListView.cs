@@ -44,7 +44,6 @@ namespace GroupLibraryProject
                     Console.WriteLine($"{book.Type}");
                 }
             }
-<<<<<<< HEAD
         }
         public void DisplayAuthor(List<Book> bookList, string author)
         {
@@ -87,14 +86,6 @@ namespace GroupLibraryProject
                 }
             }
         }
-
-
-
-=======
->>>>>>> 0f75598f2885809d27e04c65e4e5f214db9000d6
-
-
-
 
         }
     }
