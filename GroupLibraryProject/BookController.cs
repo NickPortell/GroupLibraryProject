@@ -42,8 +42,8 @@ namespace GroupLibraryProject
             while (response == "yes")
             {
                 //Maybe prompt a rotating selection of 'popular' books as a 'book of the day or hotest author'.
-                Console.WriteLine("Browse: ");
-                Console.WriteLine("\t");
+                Console.WriteLine("Here are some browsing/search options:");
+                Console.WriteLine("\t1. By Genre \n\t2. By Author\n\t3. By Title\n\t4. By Checkout Status\n\t5. Expected Returns ");
                 
             }
             Console.WriteLine("\nThank you!");
