@@ -10,6 +10,7 @@ namespace GroupLibraryProject
     {
         // LOOK I MADE COOL CHANGES!!
         private List<Book> books;
+        private BookView view;
 
         public List<Book> Books
         {
@@ -33,52 +34,56 @@ namespace GroupLibraryProject
                 count++;
             }
         }
-        public void DisplayType(List<Book> bookList, string type)
+        public void DisplayType(string type)
         {
-
-
-            foreach (Book book in bookList)
+            
+            foreach (Book book in books)
             {
+                view = new BookView(book);
                 if (book.Type == type)
                 {
-                    Console.WriteLine($"{book.Type}");
+                    view.Display();
                 }
             }
         }
-        public void DisplayAuthor(List<Book> bookList, string author)
+        public void DisplayAuthor(string author)
         {
-            foreach(Book book in bookList)
+            foreach(Book book in books)
             {
-                if(book.Author == author)
+                view = new BookView(book);
+                if (book.Author == author)
                 {
-                    Console.WriteLine($" {book.Author}");
+                    view.Display();
                 }
             }
           
         }
-        public void DisplayTitle(List<Book> bookList, string title)
+        public void DisplayTitle(string title)
         {
-            foreach(Book book in bookList)
+            foreach(Book book in books)
             {
-                if(book.Title == title)
+                view = new BookView(book);
+                if(book.Title.Contains(title))
                 {
-                    Console.WriteLine($" {book.Title}");
+                    view.Display();
                 }
             }
         }
-        public void DisplayStatus(List<Book> bookList, string status)
+        public void DisplayStatus(bool status)
         {
-            foreach (Book book in bookList)
+
+            foreach (Book book in books)
             {
+                view = new BookView(book);
                 if (book.Status == status)
                 {
-                    Console.WriteLine($" {book.Status}");
+                    view.Display();
                 }
             }
         }
-        public void DisplayDueDate(List<Book> bookList, DateTime dueDate)
+        public void DisplayDueDate(DateTime dueDate)
         {
-            foreach (Book book in bookList)
+            foreach (Book book in books)
             {
                 if (book.DueDate == dueDate)
                 {

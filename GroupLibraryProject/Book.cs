@@ -13,7 +13,7 @@ namespace GroupLibraryProject
         private string author;
         private DateTime dueDate;
         private string type;
-        private string status;
+        private bool status;
 
         public string Title
         {
@@ -35,13 +35,13 @@ namespace GroupLibraryProject
             set { type = value; }
             get { return type; }
         }
-        public string Status
+        public bool Status
         {
             set { status = value; }
             get { return status; }
         }
 
-        public Book(string _title, string _author, DateTime _dueDate, string _type, string _status)
+        public Book(string _title, string _author, DateTime _dueDate, string _type, bool _status)
         {
             title = _title;
             author = _author;
