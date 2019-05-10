@@ -44,24 +44,23 @@ namespace GroupLibraryProject
                     Console.WriteLine($"{book.Type}");
                 }
             }
-<<<<<<< HEAD
         }
         public void DisplayAuthor(List<Book> bookList, string author)
         {
-            foreach(Book book in bookList)
+            foreach (Book book in bookList)
             {
-                if(book.Author == author)
+                if (book.Author == author)
                 {
                     Console.WriteLine($" {book.Author}");
                 }
             }
-          
+
         }
         public void DisplayTitle(List<Book> bookList, string title)
         {
-            foreach(Book book in bookList)
+            foreach (Book book in bookList)
             {
-                if(book.Title == title)
+                if (book.Title == title)
                 {
                     Console.WriteLine($" {book.Title}");
                 }
@@ -87,18 +86,17 @@ namespace GroupLibraryProject
                 }
             }
         }
-
-
-
-=======
->>>>>>> 0f75598f2885809d27e04c65e4e5f214db9000d6
-
-
-
-
-        }
     }
 }
+
+
+
+
+
+
+
+
+  
 
 
 
