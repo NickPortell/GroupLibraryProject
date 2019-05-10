@@ -36,7 +36,7 @@ namespace GroupLibraryProject
         #region Methods
         public void Display()
         {
-            books.Sort();
+           
             foreach (Book book in books)
             {
                 Console.WriteLine(book);

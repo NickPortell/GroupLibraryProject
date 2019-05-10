@@ -53,16 +53,20 @@ namespace GroupLibraryProject
 
             List<Book> bookDb = new List<Book>();
 
-            Console.WriteLine($"{Titles.Length}\n{Authors.Length}\n{Types.Length}\n{Dates.Length}\n{checkedOut.Length}\n");
+            //Console.WriteLine($"{Titles.Length}\n{Authors.Length}\n{Types.Length}\n{Dates.Length}\n{checkedOut.Length}\n");
 
 
             for(int i=0; i< Titles.Length;i++)
             {
-                bookDb[i].Title = Titles[i];
-                bookDb[i].Author = Authors[i];
-                bookDb[i].Type = Types[i];
-                bookDb[i].DueDate = dueDates[i];
-                bookDb[i].Status = statuses[i];
+                Book book = new Book(Titles[i],Authors[i],dueDates[i],Types[i],statuses[i]);
+
+                //book.Title = Titles[i];
+                //book.Author = Authors[i];
+                //book.Type = Types[i];
+                //book.DueDate = dueDates[i];
+                //book.Status = statuses[i];
+
+                bookDb.Add(book);
             }
 
             BookListView listView = new BookListView(bookDb);
