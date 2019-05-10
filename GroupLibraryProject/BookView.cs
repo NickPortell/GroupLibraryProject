@@ -32,10 +32,7 @@ namespace GroupLibraryProject
         public void Display()
         {
 
-            Console.WriteLine("\n" +
-                "\n" +
-                "\n" +
-                "");
+            Console.WriteLine();
             //To center text in the window
             string s = "Title : " + displayBook.Title;
             Console.WriteLine(String.Format("{0," + ((Console.WindowWidth / 2) + (s.Length / 2)) + "}", s));

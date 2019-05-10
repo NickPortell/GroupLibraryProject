@@ -323,9 +323,10 @@ namespace GroupLibraryProject
                             {
                                 if (b.Status == true)
                                 {
-                                    Console.Write($"\n\t{b.Title}");
+                                    Console.WriteLine($"\n\t{b.Title}");
                                 }
                             }
+                            Console.ReadLine();
                             break;
                         }
                     case 2:
@@ -334,7 +335,7 @@ namespace GroupLibraryProject
                             {
                                 if (b.Status == false)
                                 {
-                                    Console.Write($"\n\t{b.Title}");
+                                    Console.WriteLine($"\n\t{b.Title}");
                                 }
                             }
                             CheckOut();
