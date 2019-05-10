@@ -45,9 +45,9 @@ namespace GroupLibraryProject
             Console.WriteLine(String.Format("{0," + ((Console.WindowWidth / 2) + (g.Length / 2)) + "}", g));
             string d = "Due date : " + displayBook.DueDate.ToString("MM/dd/yyyy");
             Console.WriteLine(String.Format("{0," + ((Console.WindowWidth / 2) + (d.Length / 2)) + "}", d));
-            string c = "Checked in/out : " + displayBook.Status;
+            string c = "Checked out : " + displayBook.Status;
             Console.WriteLine(String.Format("{0," + ((Console.WindowWidth / 2) + (c.Length / 2)) + "}", c));
-            Console.ReadLine();
+            
 
         }
         #endregion
