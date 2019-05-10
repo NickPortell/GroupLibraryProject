@@ -11,13 +11,15 @@ namespace GroupLibraryProject
     {
         static void Main(string[] args)
         {
+            
 
-            string[] books = File.ReadAllLines(@"E:\Author.txt");
+            
+            BookController Control = new BookController();
 
-            for (int i=0;i<books.Length;i++)
-            {
-                Console.WriteLine(books[i]);
-            }
+
+
+            Control.WelcomeAction();
+
 
         }
     }
