@@ -9,14 +9,20 @@ namespace GroupLibraryProject
     class BookListView
     {
         // LOOK I MADE COOL CHANGES!!
+        #region Fields
         private List<Book> books;
         private BookView view;
+        #endregion
 
+        #region Properties
         public List<Book> Books
         {
             set { books = value; }
             get { return books; }
         }
+        #endregion
+
+        #region Constructor
         public BookListView(List<Book> _books)
         {
             books = _books;
@@ -25,18 +31,21 @@ namespace GroupLibraryProject
         {
 
         }
+        #endregion
+
+        #region Methods
         public void Display()
         {
-            int count = 0;
+            books.Sort();
             foreach (Book book in books)
             {
                 Console.WriteLine(book);
-                count++;
+               
             }
         }
         public void DisplayType(string type)
         {
-            
+
             foreach (Book book in books)
             {
                 view = new BookView(book);
@@ -48,7 +57,7 @@ namespace GroupLibraryProject
         }
         public void DisplayAuthor(string author)
         {
-            foreach(Book book in books)
+            foreach (Book book in books)
             {
                 view = new BookView(book);
                 if (book.Author == author)
@@ -60,10 +69,10 @@ namespace GroupLibraryProject
         }
         public void DisplayTitle(string title)
         {
-            foreach(Book book in books)
+            foreach (Book book in books)
             {
                 view = new BookView(book);
-                if(book.Title.Contains(title))
+                if (book.Title.Contains(title))
                 {
                     view.Display();
                 }
@@ -91,10 +100,11 @@ namespace GroupLibraryProject
                 }
             }
         }
+        #endregion
 
     }
-    }
 }
+
 
 
 

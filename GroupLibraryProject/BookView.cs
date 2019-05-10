@@ -8,34 +8,29 @@ namespace GroupLibraryProject
 {
     class BookView
     {
-
+        #region Fields
         private Book displayBook;
+        #endregion
 
-
+        #region Properties
         public Book DisplayBook
         {
             set { displayBook = value; }
             get { return displayBook; }
 
         }
+        #endregion
 
-
+        #region Constructor
         public BookView(Book _displayBook)
         {
             DisplayBook = _displayBook;
         }
+        #endregion
 
-
+        #region Methods
         public void Display()
         {
-
-            //    Console.WriteLine("\n" +
-            //        "Title : \n" + //displayBook.Title + 
-            //        "Author : \n" + //displayBook.Author +
-            //        "Genre : \n" + //displayBook.Type +
-            //        "Due Date : "); //+ //displayBook.DueDate);
-            //    Console.ReadLine();
-
 
             Console.WriteLine("\n" +
                 "\n" +
@@ -55,6 +50,7 @@ namespace GroupLibraryProject
             Console.ReadLine();
 
         }
+        #endregion
 
 
     }
