@@ -9,13 +9,20 @@ namespace GroupLibraryProject
     class BookListView
     {
         // LOOK I MADE COOL CHANGES!!
+        #region Fields
         private List<Book> books;
+        private BookView view;
+        #endregion
 
+        #region Properties
         public List<Book> Books
         {
             set { books = value; }
             get { return books; }
         }
+        #endregion
+
+        #region Constructor
         public BookListView(List<Book> _books)
         {
             books = _books;
@@ -24,61 +31,68 @@ namespace GroupLibraryProject
         {
 
         }
+        #endregion
+
+        #region Methods
         public void Display()
         {
-            int count = 0;
+           
             foreach (Book book in books)
             {
                 Console.WriteLine(book);
-                count++;
+               
             }
         }
-        public void DisplayType(List<Book> bookList, string type)
+        public void DisplayType(string type)
         {
 
-
-            foreach (Book book in bookList)
+            foreach (Book book in books)
             {
+                view = new BookView(book);
                 if (book.Type == type)
                 {
-                    Console.WriteLine($"{book.Type}");
+                    view.Display();
                 }
             }
         }
-        public void DisplayAuthor(List<Book> bookList, string author)
+        public void DisplayAuthor(string author)
         {
-            foreach(Book book in bookList)
+            foreach (Book book in books)
             {
-                if(book.Author == author)
+                view = new BookView(book);
+                if (book.Author == author)
                 {
-                    Console.WriteLine($" {book.Author}");
+                    view.Display();
                 }
             }
-          
+
         }
-        public void DisplayTitle(List<Book> bookList, string title)
+        public void DisplayTitle(string title)
         {
-            foreach(Book book in bookList)
+            foreach (Book book in books)
             {
-                if(book.Title == title)
+                view = new BookView(book);
+                if (book.Title.Contains(title))
                 {
-                    Console.WriteLine($" {book.Title}");
+                    view.Display();
                 }
             }
         }
-        public void DisplayStatus(List<Book> bookList, string status)
+        public void DisplayStatus(bool status)
         {
-            foreach (Book book in bookList)
+
+            foreach (Book book in books)
             {
+                view = new BookView(book);
                 if (book.Status == status)
                 {
-                    Console.WriteLine($" {book.Status}");
+                    view.Display();
                 }
             }
         }
-        public void DisplayDueDate(List<Book> bookList, DateTime dueDate)
+        public void DisplayDueDate(DateTime dueDate)
         {
-            foreach (Book book in bookList)
+            foreach (Book book in books)
             {
                 if (book.DueDate == dueDate)
                 {
@@ -86,10 +100,15 @@ namespace GroupLibraryProject
                 }
             }
         }
+        #endregion
 
+<<<<<<< HEAD
         
+=======
+>>>>>>> da3ff82252da7ffd2cd367ff79e41c50cc947856
     }
 }
+
 
 
 
