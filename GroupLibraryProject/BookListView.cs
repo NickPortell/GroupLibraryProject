@@ -8,7 +8,9 @@ namespace GroupLibraryProject
 {
     class BookListView
     {
+        // LOOK I MADE COOL CHANGES!!
         private List<Book> books;
+
         public List<Book> Books
         {
             set { books = value; }
@@ -31,59 +33,74 @@ namespace GroupLibraryProject
                 count++;
             }
         }
-        public static void DisplayType(List<Book> bookList,string type)
+        public void DisplayType(List<Book> bookList, string type)
         {
-            foreach(Book book in books)
+
+
+            foreach (Book book in bookList)
             {
-                if(book.Type==Type)
+                if (book.Type == type)
                 {
-                    Console.WriteLine($"{book.Title}");
+                    Console.WriteLine($"{book.Type}");
                 }
             }
-
-
-
-
-
-
-
-
-
-
-            public static void GetMovie(List<Movie> movies, string Category)
+        }
+        public void DisplayAuthor(List<Book> bookList, string author)
+        {
+            foreach(Book book in bookList)
             {
-                foreach (Movie movie in movies)
+                if(book.Author == author)
                 {
-                    if (movie.Category == Category)
-                    {
-                        Console.WriteLine($"{movie.Category} movie: {movie.Title}");
-                    }
-                    //switch (type)
-                    //{
-                    //    case "Drama":
-                    //        Console.WriteLine("You are looking for a Drama Book");
-                    //        break;
-                    //    case "Scifi":
-                    //        Console.WriteLine("You are looking for a Scifi");
-                    //        break;
-                    //    case "Romance":
-                    //        Console.WriteLine("You are looking for a Romance");
-                    //        break;
-                    //    case "Horror":
-                    //        Console.WriteLine("You are looking for a Horror");
-                    //        break;
-                    //    default:
-                    //        break;
-
-                    foreach (Book book in books)
-                    {
-                        
-                    }
-
-                    }
+                    Console.WriteLine($" {book.Author}");
+                }
+            }
+          
+        }
+        public void DisplayTitle(List<Book> bookList, string title)
+        {
+            foreach(Book book in bookList)
+            {
+                if(book.Title == title)
+                {
+                    Console.WriteLine($" {book.Title}");
+                }
+            }
+        }
+        public void DisplayStatus(List<Book> bookList, string status)
+        {
+            foreach (Book book in bookList)
+            {
+                if (book.Status == status)
+                {
+                    Console.WriteLine($" {book.Status}");
+                }
+            }
+        }
+        public void DisplayDueDate(List<Book> bookList, DateTime dueDate)
+        {
+            foreach (Book book in bookList)
+            {
+                if (book.DueDate == dueDate)
+                {
+                    Console.WriteLine($" {book.DueDate}");
+                }
             }
         }
 
         }
     }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
