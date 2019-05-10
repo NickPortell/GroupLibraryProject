@@ -9,6 +9,6 @@ namespace GroupLibraryProject
     class BookDb
     {
 
-        List<Book> books =new List<Book> { }
+        List<Book> books = new List<Book> { }
     }
 }
