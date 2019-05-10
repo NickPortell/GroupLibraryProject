@@ -56,7 +56,7 @@ namespace GroupLibraryProject
                     view.Display();
                 }
             }
-          
+
         }
         public void DisplayTitle(string title)
         {
@@ -92,7 +92,7 @@ namespace GroupLibraryProject
             }
         }
 
-        }
+    }
     }
 }
 
