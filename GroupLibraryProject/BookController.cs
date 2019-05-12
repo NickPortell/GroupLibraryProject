@@ -52,7 +52,7 @@ namespace GroupLibraryProject
             DateTime[] dueDates = new DateTime[Dates.Length];
             for (int i = 0; i < Dates.Length; i++)
             {
-                if (Dates[i] == "DateTime.Now")
+                if (Dates[i] == "DateTime.Now" || DateTime.Compare(DateTime.Now, DateTime.Parse(Dates[i])) > 0) //To stay dynamic with Text File in case of books being checked out.
                 {
                     dueDates[i] = DateTime.Now;
                 }
@@ -80,32 +80,36 @@ namespace GroupLibraryProject
             #endregion
 
 
-            //Console.WriteLine($"{Titles.Length}\n{Authors.Length}\n{Types.Length}\n{Dates.Length}\n{checkedOut.Length}\n");
-
-
             for (int i = 0; i < Titles.Length; i++)
             {
                 Book book = new Book(Titles[i], Authors[i], dueDates[i], Types[i], statuses[i]);
-
-                //book.Title = Titles[i];
-                //book.Author = Authors[i];
-                //book.Type = Types[i];
-                //book.DueDate = dueDates[i];
-                //book.Status = statuses[i];
 
                 bookDb.Add(book);
             }
 
 
             BookListView listView = new BookListView(bookDb);
-            Console.WriteLine("Hello, welcome to the Grand Circus Library!");// Maybe put this in Main?
+            Console.WriteLine("Hello, welcome to the Grand Circus Library!");
+            Console.WriteLine("***[PLEASE MAKE FULLSCREEN]***\n\n");
 
             while (response == "yes")
             {
                 //Maybe prompt a rotating selection of 'popular' books as a 'book of the day or hotest author'.
-                Console.WriteLine("Here are some browsing/search options:");
-                Console.WriteLine("\t1. By Genre \n\t2. By Author\n\t3. By Specific Title\n\t4. By Checkout Status\n\t5. Expected Returns \n\t6. All Books \n\t7. Quit");
+                DisplayBorder();
+                DisplayMenuWithBorder("\tHere are some browsing/search options:");
+                DisplayMenuWithBorder("\t ");
+                DisplayMenuWithBorder("\t1. By Genre");
+                DisplayMenuWithBorder("\t2. By Author");
+                DisplayMenuWithBorder("\t3. By Specific Title");
+                DisplayMenuWithBorder("\t4. By Checkout Status");
+                DisplayMenuWithBorder("\t5. Expected Returns");
+                DisplayMenuWithBorder("\t6. All Books");
+                DisplayMenuWithBorder("\t7. Quit");
+                DisplayBorder();
+
+                Console.Write("\nMENU OPTION: ");
                 string choice = Console.ReadLine();
+                Console.Clear();
 
                 if (int.TryParse(choice, out int num))
                 {
@@ -113,37 +117,49 @@ namespace GroupLibraryProject
                     {
                         case 1://Genre
                             {
-                                Console.WriteLine("Here are our available types of books:");
+                                DisplayBorder();
+                                DisplayMenuWithBorder("Here are our available types of books:");
+                                DisplayMenuWithBorder(" ");
                                 DisplayGenre();
                                 break;
                             }
                         case 2://Author
                             {
-                                Console.WriteLine("Here are our list of available Authors:");
+                                DisplayBorder();
+                                DisplayMenuWithBorder("Here are our list of available Authors:");
+                                DisplayMenuWithBorder(" ");
                                 DisplayAuthor();
                                 break;
                             }
                         case 3://Title
                             {
-                                Console.WriteLine("What is the specific Title for a book you are looking for?");
+                                DisplayBorder();
+                                DisplayMenuWithBorder("What is the specific Title for a book you are looking for?");
+                                DisplayMenuWithBorder(" ");
                                 DisplayTitle();
                                 break;
                             }
                         case 4://Status
                             {
-                                Console.WriteLine("What kind of books would you like to see:");
+                                DisplayBorder();
+                                DisplayMenuWithBorder("What kind of books would you like to see:");
+                                DisplayMenuWithBorder(" ");
                                 DisplayStatus();
                                 break;
                             }
                         case 5://Upcoming returns
                             {
-                                Console.WriteLine("Here are books who are 'checked out', but estimated to be returned within the next two weeks: ");
+                                DisplayBorder();
+                                DisplayMenuWithBorder("Here are books who are 'checked out', but estimated to be returned within the next two weeks: ");
+                                DisplayMenuWithBorder(" ");
                                 DisplayDate();
                                 break;
                             }
                         case 6:// All books
                             {
-                                Console.WriteLine("Here is our selection of ALL books in alphabetical order: ");
+                                DisplayBorder();
+                                DisplayMenuWithBorder("Here is our selection of ALL books in alphabetical order: ");
+                                DisplayMenuWithBorder(" ");
                                 listView.Display();
                                 CheckOut();
                                 break;
@@ -157,7 +173,6 @@ namespace GroupLibraryProject
                         default:
                             {
                                 Console.WriteLine("invalid input! Please enter a valid number between 1-7 \n\t(Please try again)");
-                                WelcomeAction();
                                 break;
                             }
                             
@@ -166,9 +181,8 @@ namespace GroupLibraryProject
                 else
                 {
                     Console.WriteLine("invalid input! Please enter a valid number between 1-7 \n\t(Please try again)");
-                    WelcomeAction();
                 }
-                Console.Clear();
+                //Console.Clear();
             }
             Console.WriteLine("\nThank you!");
         }
@@ -177,11 +191,19 @@ namespace GroupLibraryProject
         public void DisplayGenre()
         {
             BookListView listView = new BookListView(bookDb);
-            Console.WriteLine("\n\tYoung Adult\tThriller\tSatire");
-            Console.WriteLine("\n\tRomantic\tFantasy\tChildren's Literature");
-            Console.WriteLine("\n\tScience Fiction\tHistorical Fiction\tGothic Fiction");
 
-            Console.WriteLine("Which type would like to see a list of?");
+            DisplayMenuWithBorder("Young Adult");
+            DisplayMenuWithBorder("Thriller");
+            DisplayMenuWithBorder("Satire");
+            DisplayMenuWithBorder("Romantic");
+            DisplayMenuWithBorder("Fantasy");
+            DisplayMenuWithBorder("Children's Literature");
+            DisplayMenuWithBorder("Science Fiction");
+            DisplayMenuWithBorder("Historical Fiction");
+            DisplayMenuWithBorder("Gothic Fiction");
+            DisplayBorder();
+
+            Console.WriteLine("\nWhich type would like to see a list of?");
             string choice = Console.ReadLine();
 
             switch(choice)
@@ -256,6 +278,7 @@ namespace GroupLibraryProject
         }
         public void DisplayAuthor()
         {
+            BookController bControl = new BookController();
             BookListView listView = new BookListView(bookDb);
             List<string> authors= new List<string>();
 
@@ -269,26 +292,33 @@ namespace GroupLibraryProject
 
             foreach(string author in authors)
             {
-                Console.WriteLine($"\n\t{author}");
+                DisplayMenuWithBorder(author);
             }
+            DisplayBorder();
 
-            Console.WriteLine("\nBased on this list, is there an author whose books you'd like to see if we have? (y/n)");
+            Console.Write("\nBased on this list, is there an author whose books you'd like to see if we have? (y/n): ");
             string response = Console.ReadLine().ToLower();
 
             if(response == "y")
             {
                 Console.Write("Please enter your desired Author: ");
                 string authorChoice = Console.ReadLine();
+                Console.Clear();
+                Console.WriteLine($"Here are all our books by {authorChoice}:");
 
+                DisplayCenterBorder();
                 foreach (Book b in bookDb)
                 {
                     if (b.Author.Contains(authorChoice))
                     {
-                        Console.WriteLine($"\n\t{b.Title}");
+
+                        bControl.BookAction(b);
                     }
 
                 }
+                DisplayCenterBorder();
 
+                
                 CheckOut();
             }
 
@@ -311,39 +341,51 @@ namespace GroupLibraryProject
         public void DisplayStatus()
         {
             Console.WriteLine("\n\t1. Checked out\n\t2. Avaliable");
+
+            Console.Write("(1 / 2): ");
             string choice = Console.ReadLine();
+
 
             if(int.TryParse(choice, out int num))
             {
-                switch(num)
+                Console.Clear();
+
+                switch (num)
                 {
                     case 1:
                         {
+                            DisplayBorder();
+
                             foreach (Book b in bookDb)
                             {
                                 if (b.Status == true)
                                 {
-                                    Console.WriteLine($"\n\t{b.Title}");
+                                    DisplayTitleWithBorder(b);              
                                 }
                             }
-                            Console.ReadLine();
+                            DisplayBorder();
+
+                            ReserveBook();
                             break;
                         }
                     case 2:
                         {
+                            DisplayBorder();
+
                             foreach (Book b in bookDb)
                             {
                                 if (b.Status == false)
                                 {
-                                    Console.WriteLine($"\n\t{b.Title}");
+                                    DisplayTitleWithBorder(b);
                                 }
                             }
+                            DisplayBorder();
+
                             CheckOut();
                             break;
                         }
                     default:
                         {
-                            Console.Clear();
                             Console.WriteLine("Invalid input! (Please enter a (1) or (2))\n\t(Please try again)\n");
                             DisplayStatus();
                             break;
@@ -367,10 +409,61 @@ namespace GroupLibraryProject
             ReserveBook();
         }
 
+        public int MaxTitleLength()
+        {
+            int max = 0;
+            foreach(Book b in bookDb)
+            {
+                if(max < b.Title.Length)
+                {
+                    max = b.Title.Length;
+                }    
+            }
+            return max;
+        }
+
+        public void DisplayBorder()
+        {
+            string border = "";
+
+            for (int i = 0; i < MaxTitleLength(); i++)
+            {
+                border += "=";
+            }
+            Console.WriteLine("{0," +MaxTitleLength() +"}{1," + MaxTitleLength() + "}"," " ,border);
+        }
+        public void DisplayCenterBorder()
+        {
+            string border = "";
+
+            for (int i = 0; i < MaxTitleLength(); i++)
+            {
+                border += "=";
+            }
+            Console.WriteLine(String.Format("{0," + ((Console.WindowWidth / 2) + (border.Length / 2)) + "}", border));
+        }
+        public void DisplayMenuWithBorder(string s)
+        {
+            string prompt = string.Format("{0," + (MaxTitleLength()) + "}{1," + (-MaxTitleLength()) + "}", "|| ", s);
+
+            Console.Write(prompt);
+
+            Console.WriteLine("{0," + (-MaxTitleLength()) + "}", " ||");
+        }
+        public void DisplayTitleWithBorder(Book b)
+        {
+                string prompt = string.Format("{0," + (MaxTitleLength()) + "}{1," + (-MaxTitleLength()) + "}", "|| ", b.Title);
+
+                Console.Write(prompt);
+
+                Console.WriteLine("{0," + (-MaxTitleLength()) + "}", " ||");
+        }
+
         public void CheckOut()
         {
-            Console.WriteLine("Would you like to check out a book from this selection? (y/n)");
+            Console.Write("\n\nWould you like to check out a book from this selection? (y/n): ");
             string response = Console.ReadLine().ToLower();
+
             if (response == "y")
             {
                 Console.WriteLine("Which book would you like to check out?");
@@ -378,10 +471,28 @@ namespace GroupLibraryProject
 
                 foreach (Book b in bookDb)
                 {
-                    if (b.Title.Contains(choice))
+                    if (b.Title.ToLower().Trim() == choice.ToLower().Trim())
                     {
-                        b.Status = true;
-                        Console.WriteLine($"You have checked out: \"{b.Title}\" !");
+                        if (b.Status == true)
+                        {
+                            Console.Write($"Sorry, \"{b.Title}\" is currently already checked out till {b.DueDate}.\nWould you like to reserve a copy and pick it up when it becomes available? (y/n): ");
+                            string reserveChoice = Console.ReadLine().ToLower();
+
+                            if(reserveChoice == "y")
+                            {
+                                b.Status = true;
+                                Console.WriteLine($"You have reserved: \"{b.Title}\" !");
+                                Console.WriteLine($"It will be available for checkout on {b.DueDate}!");
+                                b.DueDate.AddDays(14);
+                            }
+                        }
+                        else
+                        {
+                            b.Status = true;
+                            Console.WriteLine($"You have checked out: \"{b.Title}\" !");
+                            b.DueDate.AddDays(14);
+                            Console.WriteLine($"It will be do back by: {b.DueDate}");
+                        }
                     }
 
                 }
@@ -390,11 +501,10 @@ namespace GroupLibraryProject
             {
                 Console.Clear();
             }
-            Console.Clear();
         }
         public void ReserveBook()
         {
-            Console.WriteLine("Would you like to reserve a book from this selection? (y/n)");
+            Console.Write("\n\nWould you like to reserve a book from this selection? (y/n): ");
             string response = Console.ReadLine().ToLower();
             if (response == "y")
             {
