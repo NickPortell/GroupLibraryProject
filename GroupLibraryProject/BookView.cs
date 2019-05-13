@@ -47,6 +47,14 @@ namespace GroupLibraryProject
             
 
         }
+        public void DisplayDate()
+        {
+            Console.WriteLine();
+            string s = "Title : " + displayBook.Title;
+            Console.WriteLine(String.Format("{0," + ((Console.WindowWidth / 2) + (s.Length / 2)) + "}", s));
+            string d = "Due date : " + displayBook.DueDate.ToString("MM/dd/yyyy");
+            Console.WriteLine(String.Format("{0," + ((Console.WindowWidth / 2) + (d.Length / 2)) + "}", d));
+        }
         #endregion
 
 
