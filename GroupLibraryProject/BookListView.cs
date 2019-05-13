@@ -102,10 +102,7 @@ namespace GroupLibraryProject
         }
         #endregion
 
-<<<<<<< HEAD
-        
-=======
->>>>>>> da3ff82252da7ffd2cd367ff79e41c50cc947856
+
     }
 }
 
