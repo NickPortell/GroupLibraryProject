@@ -566,7 +566,7 @@ namespace GroupLibraryProject
             string normalized = before + after;
 
             return normalized;
-        }
+        }//Not Necessary
         public void ReserveBook()
         {
             Console.Write("\n\nWould you like to reserve a book from this selection? (y/n): ");
