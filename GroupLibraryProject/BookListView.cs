@@ -121,7 +121,3 @@ namespace GroupLibraryProject
 
 
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 71eed69291bf4b5f834422594324942598ecd9c2
