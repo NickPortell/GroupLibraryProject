@@ -53,13 +53,13 @@ namespace GroupLibraryProject
             DateTime[] dueDates = new DateTime[Dates.Length];
             for (int i = 0; i < Dates.Length; i++)
             {
-                if (Dates[i] == "DateTime.Now" || DateTime.Compare(DateTime.Now, DateTime.Parse(Dates[i])) > 0) //To stay dynamic with Text File in case of books being checked out.
+                if (Dates[i] == "DateTime.Now" || DateTime.Compare(DateTime.Now.Date, DateTime.Parse(Dates[i])) > 0) //To stay dynamic with Text File in case of books being checked out.
                 {
-                    dueDates[i] = DateTime.Now;
+                    dueDates[i] = DateTime.Now.Date;
                 }
                 else
                 {
-                    dueDates[i] = DateTime.Parse(Dates[i]);
+                    dueDates[i] = DateTime.Parse(Dates[i]).Date;
                 }
             }
             #endregion
@@ -91,8 +91,9 @@ namespace GroupLibraryProject
 
 
             BookListView listView = new BookListView(bookDb);
-            Console.WriteLine("Hello, welcome to the Grand Circus Library!");
-            Console.WriteLine("***[PLEASE MAKE FULLSCREEN]***\n\n");
+            Console.WriteLine("\n\n\n");
+            Console.WriteLine("{0,"+ (Console.WindowWidth/2)+"}", "Hello, welcome to the Grand Circus Library!");
+            Console.WriteLine("{0," + (Console.WindowWidth / 2) + "}", "***[PLEASE MAKE FULLSCREEN]***\n\n");
 
             while (response == "yes")
             {
@@ -195,9 +196,53 @@ namespace GroupLibraryProject
                 Console.ReadLine();
                 Console.Clear();
             }
+            SaveToTxtFile();
             Console.WriteLine("\nThank you!");
         }
 
+        public void SaveToTxtFile()
+        {
+            string[] titles = new string[bookDb.Count];
+            string[] authors = new string[bookDb.Count];
+            string[] genres = new string[bookDb.Count];
+            string[] dueDates = new string[bookDb.Count];
+            string[] statuses = new string[bookDb.Count];
+
+            #region Clears file
+            File.Delete(@"C:\BookLibrary\Books2.txt");
+            File.Delete(@"C:\BookLibrary\Genre2.txt");
+            File.Delete(@"C:\BookLibrary\Author2.txt");
+            File.Delete(@"C:\BookLibrary\Status2.txt");
+            File.Delete(@"C:\BookLibrary\DateTime2.txt");
+            #endregion
+
+            #region Saves properties of book to declared arrays
+            for (int i = 0; i < bookDb.Count; i++)
+            {
+                titles[i] = bookDb[i].Title;
+                authors[i] = bookDb[i].Author;
+                genres[i] = bookDb[i].Type;
+                dueDates[i] = bookDb[i].DueDate.ToString("MM/dd/yyyy");
+
+                if (bookDb[i].Status)
+                {
+                    statuses[i] = "Checked out";
+                }
+                else
+                {
+                    statuses[i] = "On the Shelf";
+                }
+            }
+            #endregion
+
+            #region Add indexes of those arrays to their corresponding Txt files
+            File.WriteAllLines(@"C:\BookLibrary\Books2.txt", titles);
+            File.WriteAllLines(@"C:\BookLibrary\Genre2.txt", genres);
+            File.WriteAllLines(@"C:\BookLibrary\Author2.txt", authors);
+            File.WriteAllLines(@"C:\BookLibrary\DateTime2.txt", dueDates);
+            File.WriteAllLines(@"C:\BookLibrary\Status2.txt", statuses);
+            #endregion
+        }
 
         public void DisplayGenre()
         {
@@ -215,11 +260,11 @@ namespace GroupLibraryProject
             DisplayBorder();
 
             Console.WriteLine("\nWhich type would like to see a list of?");
-            string choice = Console.ReadLine();
+            string choice = Console.ReadLine().ToLower();
 
             switch(choice)
             {
-                case "Young Adult":
+                case "young adult":
                     {
                         Console.Clear();
                         DisplayCenterBorder();
@@ -229,7 +274,7 @@ namespace GroupLibraryProject
                         CheckOut();
                         break;
                     }
-                case "Thriller":
+                case "thriller":
                     {
                         Console.Clear();
                         DisplayCenterBorder();
@@ -239,7 +284,7 @@ namespace GroupLibraryProject
                         CheckOut();
                         break;
                     }
-                case "Satire":
+                case "satire":
                     {
                         Console.Clear();
                         DisplayCenterBorder();
@@ -249,7 +294,7 @@ namespace GroupLibraryProject
                         CheckOut();
                         break;
                     }
-                case "Romantic":
+                case "romantic":
                     {
                         Console.Clear();
                         DisplayCenterBorder();
@@ -259,7 +304,7 @@ namespace GroupLibraryProject
                         CheckOut();
                         break;
                     }
-                case "Fantasy":
+                case "fantasy":
                     {
                         Console.Clear();
                         DisplayCenterBorder();
@@ -269,7 +314,7 @@ namespace GroupLibraryProject
                         CheckOut();
                         break;
                     }
-                case "Children's Literature":
+                case "children's literature":
                     {
                         Console.Clear();
                         DisplayCenterBorder();
@@ -279,7 +324,7 @@ namespace GroupLibraryProject
                         CheckOut();
                         break;
                     }
-                case "Science Fiction":
+                case "science fiction":
                     {
                         Console.Clear();
                         DisplayCenterBorder();
@@ -289,7 +334,7 @@ namespace GroupLibraryProject
                         CheckOut();
                         break;
                     }
-                case "Historical Fiction":
+                case "historical fiction":
                     {
                         Console.Clear();
                         DisplayCenterBorder();
@@ -299,7 +344,7 @@ namespace GroupLibraryProject
                         CheckOut();
                         break;
                     }
-                case "Gotchic Fiction":
+                case "gotchic fiction":
                     {
                         Console.Clear();
                         DisplayCenterBorder();
@@ -310,12 +355,18 @@ namespace GroupLibraryProject
                         break;
                     }
                 default:
-                    break;
+                    {
+                        Console.Clear();
+                        Console.WriteLine("Invalid choice! Choice must be from provided selection.");
+                        break;
+                    }
+                    
 
             }
         }
         public void DisplayAuthor()
         {
+            int count = 0;
             BookController bControl = new BookController();
             BookListView listView = new BookListView(bookDb);
             List<string> authors= new List<string>();
@@ -340,43 +391,65 @@ namespace GroupLibraryProject
             if(response == "y")
             {
                 Console.Write("Please enter your desired Author: ");
-                string authorChoice = Console.ReadLine();
+                string authorChoice = Console.ReadLine().ToLower();
                 Console.Clear();
                 Console.WriteLine($"Here are all our books by {authorChoice}:");
 
                 DisplayCenterBorder();
+
                 foreach (Book b in bookDb)
                 {
-                    if (b.Author.Contains(authorChoice))
+                    if (b.Author.ToLower().Contains(authorChoice))
                     {
-
                         bControl.BookAction(b);
                     }
-
+                    else
+                    {
+                        count++;
+                    }
                 }
                 DisplayCenterBorder();
 
-                
-                CheckOut();
+                if (count == bookDb.Count)
+                {
+                    Console.Clear();
+                    Console.WriteLine($"Oops! Sorry, it looks like we do not have any books by \"{authorChoice}\". ");
+                }
+                else
+                {
+                    CheckOut();
+                }
             }
 
         }
         public void DisplayTitle()
         {
             BookListView listView = new BookListView(bookDb);
+            int count = 0;
+            string response = Console.ReadLine();
 
-            string response = Console.ReadLine().ToLower();
             Console.WriteLine("Here are all our books that share that title:");
 
             foreach(Book b in bookDb)
             {
-                if(b.Title.ToLower().Contains(response))
+                if(b.Title.ToLower().Contains(response.ToLower()))
                 {
                     listView.DisplayTitle(b.Title);
                 }
+                else
+                {
+                    count++;
+                }
             }
-
-            CheckOut();
+            if (count == bookDb.Count)
+            {
+                Console.Clear();
+                Console.WriteLine($"Oops! Sorry, it looks like we could not find \"{response}\" in our records of books");
+            }
+            else
+            {
+                CheckOut();
+            }
         }
         public void DisplayAllTitle()
         {
@@ -389,9 +462,12 @@ namespace GroupLibraryProject
         }
         public void DisplayStatus()
         {
-            Console.WriteLine("\n\t1. Checked out\n\t2. Avaliable");
+           // Console.WriteLine("\n\t1. Checked out\n\t2. Avaliable");
+            Console.WriteLine("{0," + (Console.WindowWidth / 2) +"}"," 1. Checked out");
+            Console.WriteLine("{0," + (Console.WindowWidth / 2) +"}","2. Avaliable");
 
-            Console.Write("(1 / 2): ");
+
+            Console.Write("{0," + (Console.WindowWidth / 2) + "}", "(1 / 2): ");
             string choice = Console.ReadLine();
 
 
@@ -440,6 +516,12 @@ namespace GroupLibraryProject
                             break;
                         }
                 }
+            }
+            else
+            {
+                Console.Clear();
+                Console.WriteLine("Invalid input! (Please enter a (1) or (2))\n\t(Please try again)\n");
+                DisplayStatus();
             }
 
 
@@ -517,6 +599,7 @@ namespace GroupLibraryProject
 
             if (response == "y")
             {
+                int count = 0;
                 Console.WriteLine("Which book would you like to check out?");
                 string choice = Console.ReadLine();
 
@@ -526,31 +609,38 @@ namespace GroupLibraryProject
                     {
                         if (b.Status == true)
                         {
-                            string date = b.DueDate.ToString("MM/dd/yyyy");
-                            Console.Write($"\nSorry, \"{b.Title}\" is currently already checked out till {date}.\nWould you like to reserve a copy and pick it up when it becomes available? (y/n): ");
+                            Console.Write($"\nSorry, \"{b.Title}\" is currently already checked out till {b.DueDate.ToString("MM/dd/yyyy")}.\nWould you like to reserve a copy and pick it up when it becomes available? (y/n): ");
                             string reserveChoice = Console.ReadLine().ToLower();
 
                             if(reserveChoice == "y")
                             {
                                 b.Status = true;
                                 Console.WriteLine($"You have reserved: \"{b.Title}\" !");
-                                Console.WriteLine($"It will be available for checkout on {date}!");
-                                date = b.DueDate.AddDays(14).ToString("MM/dd/yyyy");
+                                Console.WriteLine($"It will be available for checkout on {b.DueDate.ToString("MM/dd/yyyy")}!");
+                                b.DueDate = b.DueDate.AddDays(14);
                                 
-                                Console.WriteLine($"{b.Title} will due back by: {date}");
+                                Console.WriteLine($"{b.Title} will due back by: {b.DueDate.ToString("MM/dd/yyyy")}");
                             }
                         }
                         else
                         {
-                            string date = b.DueDate.ToString("MM/dd/yyyy");
                             b.Status = true;
                             Console.WriteLine($"You have checked out: \"{b.Title}\" !");
-                            date = b.DueDate.AddDays(14).ToString("MM/dd/yyyy");
-                            Console.WriteLine($"{b.Title} will be due back by: {date}");
+                            b.DueDate = b.DueDate.AddDays(14);
+                            Console.WriteLine($"{b.Title} will be due back by: {b.DueDate.ToString("MM/dd/yyyy")}");
                         }
+                    }
+                    else
+                    {
+                        count++;
                     }
 
                 }
+                if (count == BookDb.Count)
+                {
+                    Console.WriteLine($"Sorry, {choice} is not part of this list!\n");
+                }
+
             }
             else
             {
@@ -569,6 +659,7 @@ namespace GroupLibraryProject
         }//Not Necessary
         public void ReserveBook()
         {
+            int count = 0;
             Console.Write("\n\nWould you like to reserve a book from this selection? (y/n): ");
             string response = Console.ReadLine().ToLower();
             if (response == "y")
@@ -578,46 +669,33 @@ namespace GroupLibraryProject
 
                 foreach (Book b in bookDb)
                 {
-                    if (b.Title.Contains(choice))
+                    if (b.Title.ToLower().Contains(choice.ToLower()))
                     {
                         b.Status = true;
                         Console.WriteLine($"You have reserved: \"{b.Title}\" !");
                         Console.WriteLine($"It will be available for checkout on {b.DueDate.ToString("MM/dd/yyyy")}!");
                         b.DueDate.AddDays(14);
                     }
-
+                    else
+                    {
+                        count++;
+                    }
+                }
+                if(count == BookDb.Count)
+                {
+                    Console.WriteLine($"Sorry, {choice} is not part of this list!\n");
                 }
             }
             else
             {
                 Console.Clear();
+                
             }
         }
 
         #endregion
 
-        #region Validation Method
-        public string isValid(int max)
-        {
-            string input = Console.ReadLine();
-            if (!int.TryParse(input, out int num))
-            {
-                Console.Clear();
-                Console.WriteLine($"{input} is not a valid option. Please choose a number from 0-7\n");
-                Console.WriteLine("==================================================================");
-                return isValid(max);
-            }
-            else if (num < 0 || num > max)
-            {
-                Console.Clear();
-                Console.WriteLine($"{input} is not a valid option. Please choose a number from 0-7\n");
-                Console.WriteLine("==================================================================");
-                return isValid(max);
-            }
-            return input;
-
-        }
-        #endregion
+        
 
 
     }
